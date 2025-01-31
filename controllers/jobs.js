@@ -4,7 +4,7 @@ const {BadRequestError, NotFoundError} = require('../errors')
 
 
 const getAllJobs = async(req, res) =>{
-    res.send('get all jobs')
+    res.send('Get All Jobs')
 }
 
 const getJob = async(req, res) =>{
