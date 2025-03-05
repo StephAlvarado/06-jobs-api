@@ -36,6 +36,16 @@ app.use(cors());
 app.use(xss());
 
 
+app.get("/multiply", (req, res) => {
+  const result = req.query.first * req.query.second;
+  if (result.isNaN) {
+    result = "NaN";
+  } else if (result == null) {
+    result = "null";
+  }
+  res.json({ result: result });
+});
+
 //app.get('/', (req, res) => {
  // res.send('jobs api')
 //})
@@ -47,6 +57,17 @@ app.use(xss());
 app.use(express.static("public"));
 
 // extra packages
+app.use((req, res, next) => {
+  if (req.path == "/multiply") {
+    res.set("Content-Type", "application/json");
+  } else {
+    res.set("Content-Type", "text/html");
+  }
+  next();
+});
+
+
+
 
 // routes
 app.use('/api/v1/auth', authRouter)
@@ -67,4 +88,23 @@ const start = async () => {
   }
 }
 
-start()
+let mongoURL = process.env.MONGO_URI;
+if (process.env.NODE_ENV == "test") {
+  mongoURL = process.env.MONGO_URI_TEST;
+
+
+const port = process.env.PORT || 3000;
+const start = () => {
+  try {
+    require("./db/connect")(mongoURL);
+    return app.listen(port, () =>
+      console.log(`Server is listening on port ${port}...`),
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}};
+
+start();
+
+module.exports = { app };

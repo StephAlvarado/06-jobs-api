@@ -1,10 +1,13 @@
 {
   "name": "06-jobs-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "```bash npm install && npm start ```",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "test": "NODE_ENV=test mocha tests/*.js --timeout 5000 --exit"
+
+
   },
   "author": "",
   "license": "ISC",
@@ -27,6 +30,13 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.9"
-  }
+    "@faker-js/faker": "^9.5.1",
+    "chai": "^5.2.0",
+    "chai-http": "^5.1.1",
+    "factory-bot": "^6.3.1",
+    "mocha": "^11.1.0",
+    "nodemon": "^2.0.9",
+    "puppeteer": "^24.3.1"
+  },
+  "keywords": []
 }
